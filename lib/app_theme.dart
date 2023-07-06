@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertwo/class/SavedPrompts.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -7,6 +10,7 @@ import 'constant/constant.dart';
 
 class ThemeProvider with ChangeNotifier
 {
+
   bool isLightTheme;
   ThemeProvider({required this.isLightTheme});
 
@@ -18,7 +22,7 @@ class ThemeProvider with ChangeNotifier
           statusBarColor: Colors.transparent,
           statusBarBrightness: Brightness.light,
           statusBarIconBrightness: Brightness.dark,
-          systemNavigationBarColor: Colors.white,
+          systemNavigationBarColor: Colors.yellow,
           systemNavigationBarIconBrightness: Brightness.dark,
         ));
 

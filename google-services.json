@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "901263925422",
+    "project_id": "poemainew",
+    "storage_bucket": "poemainew.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901263925422:android:9bf20b8cbf85afa3ec4d3f",
+        "android_client_info": {
+          "package_name": "com.example.fluttertwo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1cXihX3XWk2WJJNpz2ZDWli4ionc-HV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

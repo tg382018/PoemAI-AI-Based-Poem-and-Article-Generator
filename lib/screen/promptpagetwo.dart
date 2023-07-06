@@ -14,15 +14,15 @@ import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 
-class PromtPage extends StatefulWidget {
-  const PromtPage({Key? key,required this.title,required this.whatisthis}) : super(key: key);
+class PromptTwo extends StatefulWidget {
+  const PromptTwo({Key? key,required this.title,required this.whatisthis}) : super(key: key);
   final String title;
   final bool whatisthis;
   @override
-  State<PromtPage> createState() => _PromtPageState();
+  State<PromptTwo> createState() => _PromptTwoState();
 }
 
-class _PromtPageState extends State<PromtPage> {
+class _PromptTwoState extends State<PromptTwo> {
 
 
   List<DropdownMenuItem<String>> get dropdownItems{
@@ -47,9 +47,10 @@ class _PromtPageState extends State<PromtPage> {
     return list;
   }
 
-  
-bool isPinnedChoose=false;
-var promptTitle=TextEditingController();
+  File? _imageFile;
+
+  bool isPinnedChoose=false;
+  var promptTitle=TextEditingController();
   String selectedValue = "lib/assets/wp.jpeg";
   Future<void> addPrompt(
       String userID,
@@ -84,7 +85,7 @@ var promptTitle=TextEditingController();
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage(selectedValue),fit: BoxFit.cover)
+              image: DecorationImage(image: AssetImage(selectedValue),fit: BoxFit.cover)
           ),
           child: SafeArea(
             child: Stack(
@@ -97,66 +98,53 @@ var promptTitle=TextEditingController();
                     children: [
                       GestureDetector(onTap: ()
                       {
-                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()),(route)=>false);
+                        Navigator.pop(context);
                       }
                         ,
                         child: Container(width: 40,height: 40,padding: const EdgeInsets.symmetric(horizontal: 13,vertical: 10),decoration: const BoxDecoration(shape: BoxShape.circle,color: Colors.white),
-                        child: Center(
-                          child: Icon(
-                            Icons.arrow_back_ios,size: 18,color: Colors.black,
-                          ),
-                        ),
-                        ),
-                      ),
-                      Text('     ',style:TextStyle(fontSize: 22,fontWeight: FontWeight.bold,color: Colors.white),),
-
-                      Container(width: 40,height: 40,padding: const EdgeInsets.symmetric(horizontal: 11,vertical: 10),decoration: const BoxDecoration(shape: BoxShape.circle,color: Colors.white),
-                        child: Center(
-                          child: GestureDetector(onTap:()
-                          {
-                            openDialog();
-                          }
-                            ,
+                          child: Center(
                             child: Icon(
-                              Icons.favorite,size: 18,color: Colors.black,
+                              Icons.arrow_back_ios,size: 18,color: Colors.black,
                             ),
                           ),
                         ),
                       ),
-                      
+                      Text('     ',style:TextStyle(fontSize: 22,fontWeight: FontWeight.bold,color: Colors.white),),
+
+
 
                     ],
                   ),
                   ),
                 ),
                 Align(alignment: Alignment.center,child: Container(margin: EdgeInsets.symmetric(horizontal: 13,vertical: 8),padding: EdgeInsets.symmetric(vertical: 11,horizontal: 16),width:
-                  MediaQuery.of(context).size.width,decoration: BoxDecoration(color: Colors.white.withOpacity(0.3),borderRadius: BorderRadius.circular(6),boxShadow: [
-                    BoxShadow(
-                      color: Colors.white.withOpacity(0.7),
-                      offset: Offset(2,0),
-                      blurRadius: 16,
-                    ),
+                MediaQuery.of(context).size.width,decoration: BoxDecoration(color: Colors.white.withOpacity(0.3),borderRadius: BorderRadius.circular(6),boxShadow: [
+                  BoxShadow(
+                    color: Colors.white.withOpacity(0.7),
+                    offset: Offset(2,0),
+                    blurRadius: 16,
+                  ),
                 ]),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
 
-                        SizedBox(height: 18,),
-                        ConstrainedBox(constraints: BoxConstraints(
+                          SizedBox(height: 18,),
+                          ConstrainedBox(constraints: BoxConstraints(
                             maxHeight: 300,
 
                             maxWidth: 500,
 
-                        ),
-                          child: Container(
-                              child: SingleChildScrollView(child: Text(widget.title,
-                                style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),))),
-                        ),
-                        SizedBox(height: 38,),
-                        Row(mainAxisAlignment: MainAxisAlignment.end,children: [
-                        /*  Row(
+                          ),
+                            child: Container(
+                                child: SingleChildScrollView(child: Text(widget.title,
+                                  style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),))),
+                          ),
+                          SizedBox(height: 38,),
+                          Row(mainAxisAlignment: MainAxisAlignment.end,children: [
+                            /*  Row(
                             children: [
                               Icon(Icons.security_update_sharp,color: Colors.purpleAccent,),
                               Text("Scrollable Screen ",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.purpleAccent),),
@@ -164,12 +152,12 @@ var promptTitle=TextEditingController();
                           ),*/
 
 
-                        ],),
+                          ],),
 
-                      ],
-                    ),
-                  ],
-                ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),),
                 SizedBox(height: 10,),
                 Row(
@@ -180,12 +168,7 @@ var promptTitle=TextEditingController();
                       child: Align(alignment: Alignment.bottomCenter,
                         child: GestureDetector(onTap: () async
                         {
-                          await   _takeScreenshotandShare();
-
-                          setState(() {
-                            doesTheImageExist = true;
-                            image = image;
-                          });
+                          _takeScreenshotandShare();
                         }
                           ,
                           child: Container(width: 40,height: 40,padding: const EdgeInsets.symmetric(horizontal: 11,vertical: 12),decoration: const BoxDecoration(shape: BoxShape.circle,color: Colors.white),
@@ -229,9 +212,9 @@ var promptTitle=TextEditingController();
                               )
                             ])
                             ,child: Row(
-                              children: [
-                                Icon(Icons.image,color: Colors.black,),
-                                DropdownButton(  dropdownColor: Colors.white,
+                            children: [
+                              Icon(Icons.image,color: Colors.black,),
+                              DropdownButton(  dropdownColor: Colors.white,
                                   style: TextStyle(color: Colors.black),
                                   onChanged: (String? newValue){
                                     setState(() {
@@ -242,9 +225,9 @@ var promptTitle=TextEditingController();
                                   },
                                   value: selectedValue,
                                   items: dropdownItems
+                              ),
+                            ],
                           ),
-                              ],
-                            ),
                           ),
                         ],
                       ),
@@ -261,28 +244,26 @@ var promptTitle=TextEditingController();
     );
   }
 
-    Future openDialog() =>showDialog(context: context, builder: (context)=>
-        AlertDialog(
-          title: Text("Add Favorites"),
-          content: Container(height: MediaQuery.of(context).size.height/7,
-            child: Column(children: [
-              TextField(controller: promptTitle,decoration: InputDecoration(labelText: "Write a title"),),
+  Future openDialog() =>showDialog(context: context, builder: (context)=>
+      AlertDialog(
+        title: Text("Add Favorites"),
+        content: Container(height: MediaQuery.of(context).size.height/7,
+          child: Column(children: [
+            TextField(controller: promptTitle,decoration: InputDecoration(labelText: "Write a title"),),
 
-            ],),
-          ),
+          ],),
+        ),
 
-          actions: [
-            TextButton(onPressed: (){
-
-                var userID=FirebaseAuth.instance.currentUser!.uid;
-              var firstContent="${widget.title.characters.take(55)}...";
-              isPinnedChoose=false;
-              addPrompt(userID,promptTitle.text, widget.title, firstContent, isPinnedChoose,widget.whatisthis).then((value) =>  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()),(route)=>false));
-                FocusScope.of(context).unfocus();
-              }, child: Text("Add")),
-          ],
-        )
-    );
+        actions: [
+          TextButton(onPressed: (){
+            var userID=FirebaseAuth.instance.currentUser!.uid;
+            var firstContent="${widget.title.characters.take(9)}...";
+            isPinnedChoose=false;
+            addPrompt(userID,promptTitle.text, widget.title, firstContent, isPinnedChoose,widget.whatisthis).then((value) =>  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()),(route)=>false));
+          }, child: Text("Add")),
+        ],
+      )
+  );
 
   _takeScreenshotandShare() async {
     screenshotController
@@ -300,6 +281,7 @@ var promptTitle=TextEditingController();
     });
 
   }
+
 
 
 
