@@ -18,6 +18,7 @@ class BottomNav extends StatefulWidget {
 }
 
 class _BottomNavState extends State<BottomNav> {
+
   @override
   void setState(VoidCallback fn) {
     // TODO: implement setState
@@ -25,41 +26,45 @@ class _BottomNavState extends State<BottomNav> {
     super.setState(fn);
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
-    return  SizedBox(height: 52,
-      child:   Container(color: Colors.black,
-        child:   GNav(activeColor: Colors.white,color: Colors.white,textStyle: TextStyle(color: Colors.white),padding: EdgeInsets.all(16),
+    return SizedBox(
+      height: 52,
+      child: Container(
+        color: Colors.black,
+        child: GNav(
+          activeColor: Colors.white,
+          color: Colors.white,
+          textStyle: TextStyle(color: Colors.white),
+          padding: EdgeInsets.all(16),
           tabs: [
-            GButton(onPressed: (){
-
-            },icon: Icons.home,text: "Home"),
-            GButton(onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>SavedPromptsPage()));
-            },
-
-                icon: Icons.favorite_border,text: "Saved"),
-
-            GButton(onPressed:showMenu,icon: Icons.settings,text: "Settings",),
+            GButton(onPressed: () {}, icon: Icons.home, text: "Home"),
+            GButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SavedPromptsPage()));
+                },
+                icon: Icons.favorite_border,
+                text: "Saved"),
+            GButton(
+              onPressed: showMenu,
+              icon: Icons.settings,
+              text: "Settings",
+            ),
           ],
         ),
       ),
     );
   }
 
-
-
   showMenu() {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
           return Container(
-            decoration: BoxDecoration(
-
-            ),
+            decoration: BoxDecoration(),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -69,11 +74,9 @@ class _BottomNavState extends State<BottomNav> {
                   color: Colors.black,
                 ),
                 SizedBox(
-                    height: MediaQuery.of(context).size.height/5,
+                    height: MediaQuery.of(context).size.height / 5,
                     child: Container(
-
                         decoration: BoxDecoration(
-
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(1.0),
                             topRight: Radius.circular(1.0),
@@ -81,17 +84,16 @@ class _BottomNavState extends State<BottomNav> {
                           color: Colors.black,
                         ),
                         child: Stack(
-                          clipBehavior: Clip.none, alignment: Alignment(0, 0),
+                          clipBehavior: Clip.none,
+                          alignment: Alignment(0, 0),
                           children: <Widget>[
-
                             Positioned(
                               child: ListView(
                                 physics: NeverScrollableScrollPhysics(),
                                 children: <Widget>[
-
                                   ListTile(
                                     title: Text(
-                                      "Log out",
+                                      "Log out - ${FirebaseAuth.instance.currentUser!.email}",
                                       style: TextStyle(color: Colors.white),
                                     ),
                                     leading: Icon(
@@ -99,13 +101,16 @@ class _BottomNavState extends State<BottomNav> {
                                       color: Colors.white,
                                     ),
                                     onTap: () async {
-
-
-                                          FirebaseAuth.instance.signOut().then((value) => Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>SigninPage()),(route) => false));
-
+                                      FirebaseAuth.instance.signOut().then(
+                                          (value) =>
+                                              Navigator.pushAndRemoveUntil(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          SigninPage()),
+                                                  (route) => false));
                                     },
                                   ),
-
                                   ListTile(
                                     title: Text(
                                       "About us",
@@ -117,8 +122,6 @@ class _BottomNavState extends State<BottomNav> {
                                     ),
                                     onTap: () {},
                                   ),
-
-
                                 ],
                               ),
                             )
